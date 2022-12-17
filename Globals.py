@@ -1,4 +1,4 @@
-
+#Globals
 
 USD_invested = "XXXXXXXXX"
 ILS_invested = "XXXXXXXXX"
