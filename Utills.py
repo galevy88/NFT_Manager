@@ -1,3 +1,5 @@
+# Utills functions
+
 import Globals as G
 import requests
 from opensea import OpenseaAPI
