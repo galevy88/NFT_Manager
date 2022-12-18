@@ -18,13 +18,15 @@ class NFT:
         self.manage_Hidden(Hidden)
         self.manage_Methane()
         print(self.name)
+        
     
     def manage_Hidden(self, Hidden):
         if not Hidden and self.name != "Methane":
             self.url = Utl.get_url_by_name(self.name)
             self.floor_price = Utl.get_floor_price(self.url)
-            self.USD_price = self.floor_price * G.ETH_Price
-            self.ILS_price = self.USD_price * G.USD_rate
+            if self.floor_price != None:
+                self.USD_price = self.floor_price * G.ETH_Price
+                self.ILS_price = self.USD_price * G.USD_rate
 
     def manage_Methane(self):
         if self.name == "Methane":
@@ -106,5 +108,6 @@ class NFT_Handler:
     def calculate_total_ETH(self):
         sum_ETH = 0
         for nft in self.NFTs_instances:
-            sum_ETH += nft.get_ETH_value()
+            if nft.floor_price != None:
+                sum_ETH += nft.get_ETH_value()
         return sum_ETH
