@@ -1,14 +1,14 @@
 #Globals
 
-USD_invested = 5234
-ILS_invested = 18096
+USD_invested = "XXXXXXXX"
+ILS_invested = "XXXXXXXX"
 Methane_Floor_Price = 0.16
 Methane_Amount = 2505
 Division_Factor = 1000
 ETH_Price = 0
 USD_rate = 0
 URL = "https://api.nftport.xyz/v0/accounts/0xc7706422edc932ecb5cb49cf2756c45cfe34598e?chain=ethereum&page_size=50&include=metadata"
-Headers = { "accept": "application/json", "Authorization": "337f43ee-b8aa-4512-b337-7989a28aaabe" }
+Headers = { "accept": "application/json", "Authorization": "XXXXXXXXXXX" }
 
 contract_name_dictonary = {
                           "0x2cf6be9aac1c7630d5a23af88c28275c70eb8819" : "OG Bull",
