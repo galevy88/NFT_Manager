@@ -25,8 +25,12 @@ class NFT:
             self.url = Utl.get_url_by_name(self.name)
             self.floor_price = Utl.get_floor_price(self.url)
             if self.floor_price != None:
-                self.USD_price = self.floor_price * G.ETH_Price
-                self.ILS_price = self.USD_price * G.USD_rate
+                if self.name == "OG Ape":
+                    self.USD_price = self.floor_price * G.ETH_Price * 5
+                    self.ILS_price = self.USD_price * G.USD_rate
+                else:
+                    self.USD_price = self.floor_price * G.ETH_Price
+                    self.ILS_price = self.USD_price * G.USD_rate
 
     def manage_Methane(self):
         if self.name == "Methane":
