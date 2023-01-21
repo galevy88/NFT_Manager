@@ -1,13 +1,15 @@
 # Utills functions
 
+import numpy as np
+import pandas as pd
 import Globals as G
 import requests
 from opensea import OpenseaAPI
 import ccxt
 from forex_python.converter import CurrencyRates
-import pandas as pd
 
 api = OpenseaAPI()
+
 
 def get_NFTs():
     url = G.URL
@@ -50,11 +52,26 @@ def USD_rate():
     rate = 1 / ILS_USD_rate
     return rate
 
-def calculate_profit_df(handler, USD_invested, ILS_invested):
-    USD_value, ILS_value = handler.calculate_total_value()
+def calculate_profit_df(NFT_handler,Binance_handler, USD_invested, ILS_invested):
+    USD_value_NFT, ILS_value_NFT = NFT_handler.calculate_total_value()
+    USD_value_Binance, ILS_value_Binance = Binance_handler.calculate_total_value()
+
+    USD_value = USD_value_NFT + USD_value_Binance
+    ILS_value = ILS_value_NFT + ILS_value_Binance
+
     USD_row = [USD_invested, USD_value, USD_value - USD_invested]
     ILS_row = [ILS_invested, ILS_value, ILS_value - ILS_invested]
     columns = ["Invested", "Total", "Profit"]
     index = ["USD", "ILS"]
     df = pd.DataFrame([USD_row, ILS_row], columns=columns, index=index)
     return df
+
+
+def combine_total_df(NFTs_DF, Binance_DF):
+    df_nft = NFTs_DF[["Name", "ETH Floor Price", "USD Price"]]
+    df_binance = Binance_DF[["coins", "total_eth", "total_usd"]]
+    combine_df = pd.concat([df_nft, df_binance])
+    return combine_df
+
+
+    
