@@ -25,12 +25,9 @@ class NFT:
             self.url = Utl.get_url_by_name(self.name)
             self.floor_price = Utl.get_floor_price(self.url)
             if self.floor_price != None:
-                if self.name == "OG Ape":
-                    self.USD_price = self.floor_price * G.ETH_Price * 5
-                    self.ILS_price = self.USD_price * G.USD_rate
-                else:
-                    self.USD_price = self.floor_price * G.ETH_Price
-                    self.ILS_price = self.USD_price * G.USD_rate
+                self.USD_price = self.floor_price * G.ETH_Price
+                self.ILS_price = self.USD_price * G.USD_rate
+
 
     def manage_Methane(self):
         if self.name == "Methane":
@@ -74,15 +71,14 @@ class NFT_Handler:
         contract_address = nft["contract_address"]
         name = Utl.get_name_by_contract_address(contract_address)
         token_id = nft["token_id"]
-        if(name != "UniSwap"): image = metadata["image"]
-        else: image = "None"
+        if metadata != None: image = metadata["image"]
+        else: image = None
         if contract_address in self.Verbose: Hidden = False
         return Hidden, contract_address, token_id, image, name
 
     def generate_NFTs(self):
         NFT_instances = []
         for nft in self.JSON_NFTs:
-            if(nft["contract_address"] == "0xC36442b4a4522E871399CD717aBDD847Ab11FE88"): continue
             Hidden, contract_address, token_id, image, name = self.fetch_nft(nft)
             NFT_instances.append(NFT(name=name, token_id=token_id, contract_address=contract_address, image=image, Hidden=Hidden))
         NFT_instances.append(NFT(name="Methane", token_id="", contract_address="", image="", Hidden=False))
@@ -115,8 +111,5 @@ class NFT_Handler:
         sum_ETH = 0
         for nft in self.NFTs_instances:
             if nft.floor_price != None:
-                if nft.name == "OG Ape":
-                    sum_ETH += nft.get_ETH_value() * 5
-                else:
-                    sum_ETH += nft.get_ETH_value()
+                sum_ETH += nft.get_ETH_value()
         return sum_ETH

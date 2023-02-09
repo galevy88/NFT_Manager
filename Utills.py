@@ -1,12 +1,12 @@
 # Utills functions
 
-import numpy as np
+
 import pandas as pd
 import Globals as G
 import requests
 from opensea import OpenseaAPI
 import ccxt
-from forex_python.converter import CurrencyRates
+from currency_converter import CurrencyConverter
 
 api = OpenseaAPI()
 
@@ -46,10 +46,8 @@ def get_ETH_price():
 
 def USD_rate():
     print("Getting USD Current Rate ...")
-    cr = CurrencyRates()
-    ILS_rates = cr.get_rates('ILS')
-    ILS_USD_rate = ILS_rates['USD']
-    rate = 1 / ILS_USD_rate
+    cc = CurrencyConverter()
+    rate = cc.convert(1, "USD", "ILS")
     return rate
 
 def calculate_profit_df(NFT_handler,Binance_handler, USD_invested, ILS_invested):

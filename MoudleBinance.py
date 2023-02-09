@@ -35,10 +35,13 @@ class Binance_Handler:
         print("Getting Binance Assets ...")
         account = binance.get_account()
         balances = account['balances']
-        coins = [asset['asset'] for asset in balances if float(asset['free']) > 10]
-        coins_amount = [float(asset['free']) for asset in balances if float(asset['free']) > 10]
+        
+        coins = [asset['asset'] for asset in balances if float(asset['free']) > 5]
+        
+        coins_amount = [float(asset['free']) for asset in balances if float(asset['free']) > 5]
+        
         tickers = [coin + "USDT" for coin in coins]
-
+        print(tickers)
         coin_prices = []
         all_tickers = binance.get_all_tickers()
         for ticker in tickers:
