@@ -28,6 +28,7 @@ class NFT:
                 self.USD_price = self.floor_price * G.ETH_Price
                 self.ILS_price = self.USD_price * G.USD_rate
 
+
     def manage_Methane(self):
         if self.name == "Methane":
             self.floor_price = G.Methane_Floor_Price * G.Methane_Amount / G.Division_Factor
@@ -68,9 +69,10 @@ class NFT_Handler:
         Hidden = True
         metadata = nft["metadata"]
         contract_address = nft["contract_address"]
-        token_id = nft["token_id"]
-        image = metadata["image"]
         name = Utl.get_name_by_contract_address(contract_address)
+        token_id = nft["token_id"]
+        if metadata != None: image = metadata["image"]
+        else: image = None
         if contract_address in self.Verbose: Hidden = False
         return Hidden, contract_address, token_id, image, name
 
